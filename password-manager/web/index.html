@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PassVault Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="logo">PassVault</div>
+  <div class="nav">
+    <a href="/">Login</a>
+  </div>
+</div>
+
+<div class="main">
+  <div class="card">
+    <h2>Login</h2>
+    <p class="auth-hint">Use a real email like <code>name@gmail.com</code> and a password with at least 8 characters.</p>
+    <div id="auth-message" class="status-message" hidden></div>
+
+    <form action="/login" method="post">
+      <input type="email" name="email" placeholder="Email" autocomplete="username" required>
+      <input type="password" name="password" placeholder="Master Password" minlength="8" autocomplete="current-password" required>
+      <input type="hidden" id="latitude" name="latitude">
+      <input type="hidden" id="longitude" name="longitude">
+      <p id="locationStatus" class="location-status">Checking login location securely...</p>
+      <button type="submit">Login</button>
+    </form>
+
+    <hr style="margin:20px 0;">
+
+    <h3>Register</h3>
+    <form action="/register" method="post">
+      <input type="email" name="email" placeholder="Email" autocomplete="email" required>
+      <input type="password" name="password" placeholder="Password" minlength="8" autocomplete="new-password" required>
+      <button type="submit">Register</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const message = params.get("message");
+  const type = params.get("type");
+  const form = params.get("form");
+  const messageBox = document.getElementById("auth-message");
+
+  if (message && messageBox) {
+    messageBox.hidden = false;
+    messageBox.textContent = message;
+    messageBox.classList.add(type === "success" ? "status-success" : "status-error");
+    if (form) {
+      messageBox.setAttribute("data-form", form);
+    }
+  }
+
+  const statusText = document.getElementById("locationStatus");
+  const latitudeInput = document.getElementById("latitude");
+  const longitudeInput = document.getElementById("longitude");
+
+  if (!navigator.geolocation) {
+    statusText.textContent = "Location is unavailable in this browser. Login will continue without location risk analysis.";
+  } else {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        latitudeInput.value = position.coords.latitude;
+        longitudeInput.value = position.coords.longitude;
+        statusText.textContent = "Login location captured for suspicious-login detection.";
+      },
+      () => {
+        statusText.textContent = "Location permission was not granted. Login will continue without location risk analysis.";
+      },
+      {
+        enableHighAccuracy: false,
+        timeout: 8000,
+        maximumAge: 300000
+      }
+    );
+  }
+</script>
+
+</body>
+</html>

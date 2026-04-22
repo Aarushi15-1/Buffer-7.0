@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="logo">PassVault</div>
+  <div class="nav">
+    <a href="/dashboard">Dashboard</a>
+    <a href="/vault">Vault</a>
+    <a href="/phishing">Phishing Detector</a>
+    <a href="/logout">Logout</a>
+  </div>
+</div>
+
+<div class="main">
+
+  <h2>Dashboard</h2>
+
+  <div class="card">
+    <h3>Total Passwords</h3>
+    <p>{{TOTAL}}</p>
+  </div>
+
+  <div class="card">
+    <h3>Weak Passwords</h3>
+    <p class="weak">{{WEAK}}</p>
+  </div>
+
+  <div class="card">
+    <h3>Cybersecurity Tools</h3>
+    <p style="margin-bottom:12px;">Analyze suspicious links with the DSA-powered phishing detector.</p>
+    <a class="action-link" href="/phishing">Open Phishing Detector</a>
+  </div>
+
+</div>
+
+</body>
+</html>
