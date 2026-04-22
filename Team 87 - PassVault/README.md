@@ -60,6 +60,8 @@ It also includes <b>phishing detection</b> and <b>password strength evaluation</
   <li>System analyzes passwords and detects threats</li>
 </ol>
 
+<a href="https://drive.google.com/file/d/1JYYOkgVRyiUReVGZSlNxdmlYMM6Znyt4/view?usp=sharing">Video Demo Link</a>
+
 <br>
 
 <br>
